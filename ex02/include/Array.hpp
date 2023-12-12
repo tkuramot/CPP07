@@ -9,38 +9,19 @@
 
 template <typename T> class Array {
 public:
-  Array() : elements_(new T[1]()), size_(1) {}
-  Array(size_t n) : elements_(new T[n]()), size_(n) {}
-  Array(const Array<T> &obj) : elements_(new T[1]()), size_(1) {
-    *this = obj;
-  }
-  Array &operator=(const Array<T> &obj) {
-    if (this == &obj) {
-      return *this;
-    }
-    T *temp_elements = new T[obj.size_]();
-    for (size_t i = 0; i < obj.size_; ++i) {
-      temp_elements[i] = obj.elements_[i];
-    }
-    delete[] elements_;
-    elements_ = temp_elements;
-    size_ = obj.size_;
-    return *this;
-  }
-  ~Array() {
-    delete[] elements_;
-  }
-  T &operator[](size_t index) const {
-    if (index >= size_) {
-      throw std::out_of_range("Array index out of range");
-    }
-    return elements_[index];
-  }
-  size_t Size() const { return size_; }
+  Array();
+  Array(size_t n);
+  Array(const Array<T> &obj);
+  Array &operator=(const Array<T> &obj);
+  ~Array();
+  T &operator[](size_t index) const;
+  size_t Size() const;
 
 private:
   T *elements_;
   size_t size_;
 };
+
+#include "Array.tpp"
 
 #endif // A_OUT_INCLUDE_ARRAY_HPP_
