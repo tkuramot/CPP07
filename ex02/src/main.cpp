@@ -3,19 +3,19 @@
 
 #define MAX_VAL 750
 
-int main(int, char **) {
-  Array<int> numbers(MAX_VAL);
-  int *mirror = new int[MAX_VAL];
+template<typename T>
+int test() {
+  Array<T> numbers(MAX_VAL);
+  T *mirror = new T[MAX_VAL];
   srand(time(NULL));
   for (int i = 0; i < MAX_VAL; i++) {
-    const int value = rand();
+    const T value = rand();
     numbers[i] = value;
     mirror[i] = value;
   }
-  // SCOPE
   {
-    Array<int> tmp = numbers;
-    Array<int> test(tmp);
+    Array<T> tmp = numbers;
+    Array<T> test(tmp);
   }
 
   for (int i = 0; i < MAX_VAL; i++) {
@@ -24,6 +24,7 @@ int main(int, char **) {
       return 1;
     }
   }
+  std::cerr << "test passed" << std::endl;
   try {
     numbers[-2] = 0;
   } catch (const std::exception &e) {
@@ -38,7 +39,15 @@ int main(int, char **) {
   for (int i = 0; i < MAX_VAL; i++) {
     numbers[i] = rand();
   }
-  delete[] mirror; //
-                   //    system("leaks -q a.out");
+  delete[] mirror;
+  return 0;
+}
+
+int main() {
+  test<int>();
+  test<long>();
+  test<unsigned int>();
+  test<size_t>();
+  system("leaks -q a.out");
   return 0;
 }

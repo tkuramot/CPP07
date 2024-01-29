@@ -1,12 +1,12 @@
 #include "Array.hpp"
 
-template <typename T> Array<T>::Array() : elements_(new T[1]()), size_(1) {}
+template <typename T> Array<T>::Array() : elements_(NULL), size_(0) {}
 
 template <typename T>
-Array<T>::Array(size_t n) : elements_(new T[n]()), size_(n) {}
+Array<T>::Array(unsigned int n) : elements_(new T[n]()), size_(n) {}
 
 template <typename T>
-Array<T>::Array(const Array<T> &obj) : elements_(new T[1]()), size_(1) {
+Array<T>::Array(const Array<T> &obj) : elements_(NULL), size_(0) {
   *this = obj;
 }
 
